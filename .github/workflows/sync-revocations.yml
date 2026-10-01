@@ -1,0 +1,57 @@
+# Mirror the platform's signed revocations.json into this repo, hourly.
+#
+# Written by plugin/build/make_marketplace.sh — edit the template in the
+# source repo (plugin/build/market/), not this copy.
+#
+# The plugin fetches the platform's list first and this repo's copy (GitHub
+# raw, then jsDelivr) as fallbacks, so this keeps the fallbacks current
+# without any personal token: it uses the workflow's own GITHUB_TOKEN. The
+# script verifies the Ed25519 signature against the revocation PUBLIC key
+# below and only commits a list whose seq is higher than the committed one,
+# so a compromised or broken platform response can never replace a good list.
+name: sync-revocations
+
+on:
+  schedule:
+    - cron: "17 * * * *"      # hourly, off the top of the hour
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-revocations
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    # false while license.py's PLATFORM_HOST or REVOCATION_PUBLIC_KEY_B64 was
+    # still a placeholder when this release was made.
+    if: ${{ true }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      REVOCATIONS_URL: "https://canvas-companion.samsonchew.workers.dev/revocations.json"
+      REVOCATION_PUBLIC_KEY_B64: "wcSyMms9Q5bZQ7ha+OVfx/ag5a0d4SlLQw4hmvQNTaQ="
+    steps:
+      - name: Check out revocations.json only (the binaries are not needed)
+        uses: actions/checkout@v4
+        with:
+          filter: blob:none
+          sparse-checkout: |
+            /revocations.json
+            /.github/
+          sparse-checkout-cone-mode: false
+
+      - name: Fetch and verify the platform's list
+        id: sync
+        run: node .github/scripts/sync-revocations.mjs
+
+      - name: Commit a newer list
+        if: steps.sync.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898234+github-actions[bot]@users.noreply.github.com"
+          git add revocations.json
+          git commit -m "revocations seq ${{ steps.sync.outputs.seq }} (synced from the platform)"
+          git push origin HEAD:${{ github.ref_name }}

@@ -1,0 +1,51 @@
+{
+  "mcpServers": {
+    "canvas-companion": {
+      "type": "stdio",
+      "command": "./codex/launch",
+      "args": [],
+      "cwd": ".",
+      "startup_timeout_sec": 60,
+      "tool_timeout_sec": 300,
+      "default_tools_approval_mode": "auto",
+      "tools": {
+        "license_status": {
+          "approval_mode": "approve"
+        },
+        "list_courses": {
+          "approval_mode": "approve"
+        },
+        "whats_due": {
+          "approval_mode": "approve"
+        },
+        "progress": {
+          "approval_mode": "approve"
+        },
+        "assignment_brief": {
+          "approval_mode": "approve"
+        },
+        "read_page": {
+          "approval_mode": "approve"
+        },
+        "todo_list": {
+          "approval_mode": "approve"
+        },
+        "todo_candidates": {
+          "approval_mode": "approve"
+        },
+        "list_materials": {
+          "approval_mode": "approve"
+        },
+        "read_material": {
+          "approval_mode": "approve"
+        },
+        "list_notes": {
+          "approval_mode": "approve"
+        },
+        "read_note": {
+          "approval_mode": "approve"
+        }
+      }
+    }
+  }
+}

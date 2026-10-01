@@ -1,0 +1,7 @@
+# Codex / ChatGPT app metadata for this skill. Claude Code ignores this file.
+interface:
+  display_name: "待办清单"
+  short_description: "查看、添加、完成、修改或删除待办事项 / The tracked todo list"
+  default_prompt: "还有什么没做？"
+policy:
+  allow_implicit_invocation: true

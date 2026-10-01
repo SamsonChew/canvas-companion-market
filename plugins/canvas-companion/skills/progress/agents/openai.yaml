@@ -1,0 +1,7 @@
+# Codex / ChatGPT app metadata for this skill. Claude Code ignores this file.
+interface:
+  display_name: "学期进度"
+  short_description: "各科成绩、已交与缺交、预习覆盖情况 / Grades, missing work and prep coverage"
+  default_prompt: "我的进度怎么样？"
+policy:
+  allow_implicit_invocation: true

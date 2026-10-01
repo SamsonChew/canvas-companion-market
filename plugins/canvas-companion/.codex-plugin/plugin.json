@@ -1,0 +1,29 @@
+{
+  "name": "canvas-companion",
+  "version": "0.3.5",
+  "description": "Your Canvas courses inside Claude Code: sync materials, see what is due, track grades and todos, prep for class. Read-only against Canvas.",
+  "author": {
+    "name": "Samson Chew"
+  },
+  "license": "LicenseRef-Proprietary",
+  "keywords": [
+    "canvas",
+    "education",
+    "study"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.codex-plugin/mcp.json",
+  "interface": {
+    "displayName": "Canvas Companion",
+    "shortDescription": "Your Canvas courses: what is due, grades, todos, class prep. Read-only.",
+    "developerName": "Samson Chew",
+    "category": "Education",
+    "capabilities": [
+      "Read"
+    ],
+    "defaultPrompt": [
+      "这周要交什么？",
+      "What's due this week?"
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+# Codex / ChatGPT app metadata for this skill. Claude Code ignores this file.
+interface:
+  display_name: "每周周报"
+  short_description: "全部课程的死线总表、本周变化和下周排程，存成笔记并导出 PDF / Weekly cross-course report"
+  default_prompt: "帮我写这周的周报。"
+policy:
+  allow_implicit_invocation: true

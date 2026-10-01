@@ -1,0 +1,44 @@
+{
+  "name": "canvas-companion",
+  "version": "0.3.5",
+  "description": "Your Canvas courses inside Claude Code: sync materials, see what is due, track grades and todos, prep for class. Read-only against Canvas.",
+  "author": {
+    "name": "Samson Chew"
+  },
+  "license": "LicenseRef-Proprietary",
+  "userConfig": {
+    "canvas_domain": {
+      "type": "string",
+      "title": "Canvas domain",
+      "description": "Optional. Your school's Canvas address without https://, e.g. canvas.yourschool.edu. Leave blank and say \"set up Canvas\" in chat to look it up from your school's name.",
+      "required": false
+    },
+    "canvas_token": {
+      "type": "string",
+      "title": "Canvas access token",
+      "description": "Optional. Leave blank and say \"set up Canvas\" in chat: the assistant opens the token page and saves the token you copy. By hand: Canvas -> Account -> Settings -> + New Access Token (students: at most 120 days).",
+      "sensitive": true,
+      "required": false
+    },
+    "license_key": {
+      "type": "string",
+      "title": "License key",
+      "description": "Leave blank on first install. Ask 「Canvas Companion 授权状态」 for your device id and a link to apply; paste the CC1-… key here once approved.",
+      "sensitive": true,
+      "required": false
+    }
+  },
+  "mcpServers": {
+    "companion": {
+      "command": "${CLAUDE_PLUGIN_ROOT}/server/companion",
+      "args": [],
+      "env": {
+        "CANVAS_TOKEN": "${user_config.canvas_token}",
+        "CANVAS_DOMAIN": "${user_config.canvas_domain}",
+        "COMPANION_LICENSE": "${user_config.license_key}",
+        "COMPANION_HOME": "${CLAUDE_PROJECT_DIR}",
+        "COMPANION_STRICT": "1"
+      }
+    }
+  }
+}

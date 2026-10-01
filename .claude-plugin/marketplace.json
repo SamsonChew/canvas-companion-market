@@ -1,0 +1,14 @@
+{
+  "name": "canvas-companion-market",
+  "owner": {
+    "name": "Samson Chew"
+  },
+  "description": "Canvas Companion for Claude Code (compiled build for Apple silicon Macs, macOS 15+, license required).",
+  "plugins": [
+    {
+      "name": "canvas-companion",
+      "source": "./plugins/canvas-companion",
+      "description": "Your Canvas courses inside Claude Code: sync materials, see what is due, track grades and todos, prep for class. Read-only against Canvas."
+    }
+  ]
+}

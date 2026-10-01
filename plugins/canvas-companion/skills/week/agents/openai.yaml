@@ -1,0 +1,7 @@
+# Codex / ChatGPT app metadata for this skill. Claude Code ignores this file.
+interface:
+  display_name: "本周要交"
+  short_description: "实时查看 Canvas 上各科的截止日期和新公告 / What's due and new on Canvas"
+  default_prompt: "这周要交什么？"
+policy:
+  allow_implicit_invocation: true

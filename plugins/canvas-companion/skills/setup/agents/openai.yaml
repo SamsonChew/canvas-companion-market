@@ -1,0 +1,7 @@
+# Codex / ChatGPT app metadata for this skill. Claude Code ignores this file.
+interface:
+  display_name: "设置 Canvas"
+  short_description: "查学校的 Canvas 网址、生成并保存访问令牌 / Connect Canvas or renew the token"
+  default_prompt: "帮我设置 Canvas"
+policy:
+  allow_implicit_invocation: true

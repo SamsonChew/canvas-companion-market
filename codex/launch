@@ -1,0 +1,57 @@
+#!/bin/sh
+# Canvas Companion — MCP launcher for Codex / the ChatGPT desktop app.
+#
+# Codex has no install-time prompt for secrets, so install.sh stores them in the
+# macOS Keychain and this script hands them to the server:
+#   Keychain  service canvas-companion.canvas-token  -> CANVAS_TOKEN
+#             service canvas-companion.license       -> COMPANION_LICENSE
+#   ~/.canvas-companion/codex/settings (KEY=value, no secrets)
+#             CANVAS_DOMAIN, COMPANION_HOME
+# then execs ../server/companion (the same binary the Claude Code plugin runs).
+# It never prints a secret. Codex passes MCP servers only a few variables
+# (HOME, PATH, USER, ...), so nothing else needs clearing.
+set -u
+
+HERE=$(cd "$(dirname "$0")" && pwd -P)
+ROOT=$(dirname "$HERE")
+CC_HOME="$HOME/.canvas-companion/codex"
+ACCOUNT="canvas-companion"
+PATH="${PATH:+$PATH:}/usr/bin:/bin"
+export PATH
+
+kc() {
+  security find-generic-password -a "$ACCOUNT" -s "$1" -w 2>/dev/null || true
+}
+
+DOMAIN=""
+WS=""
+if [ -f "$CC_HOME/settings" ]; then
+  while IFS= read -r line || [ -n "$line" ]; do
+    case "$line" in
+      CANVAS_DOMAIN=*) DOMAIN=${line#CANVAS_DOMAIN=} ;;
+      COMPANION_HOME=*) WS=${line#COMPANION_HOME=} ;;
+    esac
+  done < "$CC_HOME/settings"
+fi
+
+v=$(kc canvas-companion.canvas-token)
+[ -n "$v" ] && CANVAS_TOKEN=$v
+v=$(kc canvas-companion.license)
+[ -n "$v" ] && COMPANION_LICENSE=$v
+v=""
+[ -n "$DOMAIN" ] && CANVAS_DOMAIN=$DOMAIN
+[ -n "$WS" ] && COMPANION_HOME=$WS
+COMPANION_HOME="${COMPANION_HOME:-$HOME/CanvasCompanion}"
+mkdir -p "$COMPANION_HOME" 2>/dev/null || true
+
+export CANVAS_TOKEN="${CANVAS_TOKEN:-}" COMPANION_LICENSE="${COMPANION_LICENSE:-}"
+[ -n "${CANVAS_DOMAIN:-}" ] && export CANVAS_DOMAIN
+export COMPANION_HOME COMPANION_STRICT=1 COMPANION_HOST=codex
+
+EXE="$ROOT/server/companion"
+if [ ! -x "$EXE" ]; then
+  echo "canvas-companion: $EXE is missing. Re-run the installer: ~/.canvas-companion/codex/install.sh" >&2
+  exit 1
+fi
+cd "$COMPANION_HOME" 2>/dev/null || true
+exec "$EXE" "$@"

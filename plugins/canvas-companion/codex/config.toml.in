@@ -1,0 +1,42 @@
+[mcp_servers.canvas-companion]
+command = @LAUNCH@
+args = []
+startup_timeout_sec = 60
+tool_timeout_sec = 300
+default_tools_approval_mode = "auto"
+
+[mcp_servers.canvas-companion.tools.license_status]
+approval_mode = "approve"
+
+[mcp_servers.canvas-companion.tools.list_courses]
+approval_mode = "approve"
+
+[mcp_servers.canvas-companion.tools.whats_due]
+approval_mode = "approve"
+
+[mcp_servers.canvas-companion.tools.progress]
+approval_mode = "approve"
+
+[mcp_servers.canvas-companion.tools.assignment_brief]
+approval_mode = "approve"
+
+[mcp_servers.canvas-companion.tools.read_page]
+approval_mode = "approve"
+
+[mcp_servers.canvas-companion.tools.todo_list]
+approval_mode = "approve"
+
+[mcp_servers.canvas-companion.tools.todo_candidates]
+approval_mode = "approve"
+
+[mcp_servers.canvas-companion.tools.list_materials]
+approval_mode = "approve"
+
+[mcp_servers.canvas-companion.tools.read_material]
+approval_mode = "approve"
+
+[mcp_servers.canvas-companion.tools.list_notes]
+approval_mode = "approve"
+
+[mcp_servers.canvas-companion.tools.read_note]
+approval_mode = "approve"

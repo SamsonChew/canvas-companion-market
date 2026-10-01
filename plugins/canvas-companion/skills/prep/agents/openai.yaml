@@ -1,0 +1,7 @@
+# Codex / ChatGPT app metadata for this skill. Claude Code ignores this file.
+interface:
+  display_name: "课前预习"
+  short_description: "精读某周的课件和阅读材料，写成结构化预习笔记 / Deep-read a week's slides into a prep note"
+  default_prompt: "帮我预习这门课下周的内容。"
+policy:
+  allow_implicit_invocation: true

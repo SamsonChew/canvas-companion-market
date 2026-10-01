@@ -1,0 +1,4 @@
+# Binaries must be real blobs: Claude Code's clone never fetches Git LFS content.
+plugins/** -filter -diff -merge
+plugins/**/server/** binary
+codex/*.zip binary
